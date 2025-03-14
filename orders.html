@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Header */
+        header {
+            background-color: orange;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 1600px;
+            margin: auto;
+        }
+
+        /* Orders Section */
+        .order-container {
+            flex-grow: 1;   
+            padding-right: 20px;
+        }
+
+        .order-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 166, 0, 0.638);
+            border-radius: 8px;
+            padding: 20px;
+            color: white;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 900px;
+        }
+
+        .order-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+        .order-info {
+            flex-grow: 1;
+        }
+
+        .track-order, .cancel-order, .pay-now {
+            padding: 10px 15px;
+            border: none;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .track-order {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .cancel-order {
+            background-color: red;
+            color: white;
+        }
+
+        .pay-now {
+            background-color: green;
+            color: white;
+        }
+
+        /* Offer Section */
+        .offer-container {
+            width: 300px;
+            background: orange;
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            height: 500px;
+            overflow-y: auto;
+            box-shadow:5px 10px grey
+        }
+
+        .offer-box {
+            background: white;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .offer-box strong {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>Your Orders</header>
+    
+    <main class="content">
+        <section class="order-container">
+            <h2>Your Orders</h2>
+            <div id="orderList"></div>
+        </section>
+
+        <!-- Offer Section -->
+        <aside class="offer-container">
+            <h3>🔥 Exclusive Offers</h3>
+            <div id="offerList"></div>
+        </aside>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+            let paidOrders = JSON.parse(localStorage.getItem("paidOrders")) || [];
+            let orderList = document.getElementById("orderList");
+            let offerList = document.getElementById("offerList");
+
+            if (orders.length === 0) {
+                orderList.innerHTML = "<p>No orders placed yet.</p>";
+            } else {
+                orders.forEach(order => {
+                    let orderId = order.id || "ORD" + Math.floor(100000 + Math.random() * 900000);
+                    let orderItem = document.createElement("div");
+                    orderItem.classList.add("order-box");
+
+                    orderItem.innerHTML = `
+                        <img src="${order.image}" class="order-image">
+                        <div class="order-info">
+                            <h3>${order.name}</h3>
+                            <p><strong>Order ID:</strong> ${orderId}</p>
+                            <p><strong>Price:</strong> ₹${order.price}</p>
+                            <button class="track-order" onclick="trackOrder('${orderId}')">Track Order</button>
+                            <button class="cancel-order" onclick="cancelOrder('${orderId}')">Cancel Order</button>
+                            ${paidOrders.includes(orderId) ? "<p>✅ Paid</p>" : `<button class="pay-now" onclick="payNow('${orderId}', ${order.price})">Pay Now</button>`}
+                        </div>
+                    `;
+                    orderList.appendChild(orderItem);
+                });
+            }
+
+            // Generate Offers
+            let offers = [
+                "Get 10% off on Electronics!", "Buy 1 Get 1 Free on Fashion", "Flat ₹200 off on Grocery", 
+                "Special 5% Cashback on UPI Payments", "30% off on Shoes & Accessories",
+                "Exclusive 20% Discount for Prime Members", "Save ₹500 on Orders Above ₹5000",
+                "Flat ₹100 Cashback on Prepaid Orders", "Extra 15% Off on Home Decor",
+                "Special Offer: ₹50 Cashback on Wallet Payments", "25% Off on Watches & Sunglasses",
+                "Mega Sale: Up to 70% Off on Clothing", "₹150 Discount on First Purchase",
+                "Buy 2 Get 1 Free on Sportswear", "Limited Time: Free Shipping on All Orders",
+                "Up to 40% Off on Kitchen Appliances", "Save ₹300 on Mobile Accessories",
+                "Get ₹100 Instant Discount on Credit Card Payments", "Flat ₹75 Off on Stationery Items",
+                "₹500 Cashback on Travel Bookings", "Special Festival Offer: Up to 60% Off",
+                "Save ₹250 on Every ₹2500 Spent", "Buy Now, Pay Later with 0% Interest",
+                "Extra ₹200 Off on Orders Above ₹2000", "Exclusive 10% Off on Beauty Products",
+                "Flash Sale: Get ₹500 Off Instantly", "Flat ₹300 Off on Luxury Perfumes",
+                "Additional ₹150 Off for Students", "Save More with Our Super Saver Coupons",
+                "Last Chance: 50% Off on Clearance Items"
+            ];
+
+            offers.forEach(offer => {
+                let offerItem = document.createElement("div");
+                offerItem.classList.add("offer-box");
+                offerItem.innerHTML = `<strong>Deal:</strong> ${offer}`;
+                offerList.appendChild(offerItem);
+            });
+        });
+
+        function trackOrder(orderId) {
+            window.location.href = "tracking.html?orderId=" + orderId;
+        }
+
+        function payNow(orderId, amount) {
+            window.location.href = `payment.html?orderId=${orderId}&amount=${amount}`;
+        }
+
+        function cancelOrder(orderId) {
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+            let updatedOrders = orders.filter(order => order.id !== orderId);
+            localStorage.setItem("orders", JSON.stringify(updatedOrders));
+            location.reload();
+        }
+    </script>
+</body>
+</html>

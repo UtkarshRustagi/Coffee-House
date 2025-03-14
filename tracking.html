@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body, h1 {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background: orange; /* Dark navy blue */
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .container {
+            background: white; /* Dark navy blue */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: black;
+            margin-top: 20px;
+            box-shadow: 5px 10px 15px rgba(255, 166, 0, 0.39);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: rgba(255, 166, 0, 0.558);
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background: rgba(255, 166, 0, 0.558);
+
+        }
+        .tracker {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin: 30px 0;
+            padding: 0 10px;
+        }
+        .step {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.816);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .line {
+            position: absolute;
+            height: 5px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.451);
+            top: 50%;
+            left: 0;
+            z-index: 0;
+        }
+        .completed::after {
+            content: '\2714'; /* Check mark */
+            font-size: 24px;
+            color: white;
+        }
+        .completed {
+            background: #28a745 !important;
+        }
+        .completed + .line {
+            background: #28a745 !important;
+        }
+        #statusText {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+        }
+        #errorText {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Your Order</div>
+    <div class="container">
+        <input type="text" id="trackingNumber" placeholder="Enter 12-digit Tracking Number">
+        <p id="errorText"></p>
+        <button onclick="startTracking()">Track</button>
+        
+        <div class="tracker">
+            <div class="step" id="step1"></div>
+            <div class="line" id="line1"></div>
+            <div class="step" id="step2"></div>
+            <div class="line"></div>
+            <div class="step" id="step3"></div>
+            <div class="line"></div>
+            <div class="step" id="step4"></div>
+            <div class="line"></div>
+            <div class="step" id="step5"></div>
+        </div>
+        <p id="statusText">Status: Waiting for tracking number...</p>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        let currentStep = 0;
+        const statuses = [
+            "Order Placed", "Order Processed", "Order Shipped", "Out for Delivery", "Delivered"
+        ];
+        let interval;
+
+        function startTracking() {
+            const trackingNumber = document.getElementById("trackingNumber").value;
+            const errorText = document.getElementById("errorText");
+            
+            if (!/^[0-9]{12}$/.test(trackingNumber)) {
+                errorText.innerText = "Please enter a valid 12-digit tracking number.";
+                return;
+            }
+            errorText.innerText = "";
+            
+            currentStep = 0;
+            clearInterval(interval);
+            updateTracker();
+            interval = setInterval(updateTracker, 5000);
+        }
+
+        function updateTracker() {
+            if (currentStep >= statuses.length) {
+                clearInterval(interval);
+                return;
+            }
+            
+            document.getElementById(`step${currentStep + 1}`).classList.add("completed");
+            if (currentStep > 0) {
+                document.querySelectorAll(".line")[currentStep - 1].style.background = "#28a745";
+            }
+            
+            document.getElementById("statusText").innerText = "Status: " + statuses[currentStep];
+            
+            currentStep++;
+        }
+    </script>
+</body>
+</html>

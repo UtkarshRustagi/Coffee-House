@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Utkarsh's Coffee Shop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+<!-- Navigation Bar -->
+<header>
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#contact">Reservation</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="orders.html">Your Order</a></li>
+        <li><a href="tracking.html">Track Your Order</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Floating Call Icon -->
+<div class="floating-contact">
+  <div class="call-icon" onclick="toggleContactInfo()">📞</div>
+  <div id="contact-info" class="contact-info">
+      <p><strong>Email:</strong> cafehouse@gmail.com</p>
+      <p><strong>Phone No:</strong> +91 9999888822</p>
+      <p><strong>Address:</strong> Greater Noida , Uttar Pradesh</p>
+  </div>
+</div>
+
+  <!-- Include ScrollReveal -->
+<script src="https://unpkg.com/scrollreveal"></script>
+
+<script>
+// Initialize ScrollReveal
+ScrollReveal().reveal('.menu-item', {
+  origin: 'bottom',
+  distance: '50px',
+  duration: 800,
+  easing: 'ease-in-out',
+  interval: 200
+});
+</script>
+
+<!-- Hero Section -->
+<section id="hero" class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Welcome to <span class="highlight">Utkarsh's Coffee House</span></h1>
+      <p>Your Perfect Coffee Experience</p>
+      <a href="#menu" class="hero-btn">Explore Our Menu</a>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2>About Us</h2>
+      <p>We are passionate about coffee and our goal is to serve the finest coffee with great hospitality. Come and enjoy the best coffee experience at Utkarsh's Coffee House.Enjot the great taste of coffee blended with our love❤️.</p>
+    </div>
+  </section>
+
+ <!-- Menu Section -->
+<section id="menu" class="menu">
+    <div class="container">
+      <h2>Our Menu</h2>
+      <div class="menu-items">
+        <div class="menu-item">
+          <img src="expresso.png" alt="Espresso">
+          <h3>Espresso</h3>
+          <p>₹150.00</p>
+          <button class="order-btn" data-name="Espresso" data-price="150.00">Add to Order</button>
+        </div>
+        <div class="menu-item">
+          <img src="Cappuccino.png" alt="Cappuccino">
+          <h3>Cappuccino</h3>
+          <p>₹180.00</p>
+          <button class="order-btn" data-name="Cappuccino" data-price="180.00">Add to Order</button>
+        </div>
+        <div class="menu-item">
+          <img src="Latte.png" alt="Latte">
+          <h3>Latte</h3>
+          <p>₹250.00</p>
+          <button class="order-btn" data-name="Latte" data-price="250.00">Add to Order</button>
+        </div>
+        <div class="menu-item">
+            <img src="Mocha.png" alt="Mocha">
+            <h3>Mocha</h3>
+            <p>₹350.00</p>
+            <button class="order-btn" data-name="Mocha" data-price="350.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="Irish.png" alt="Irish">
+            <h3>Irish</h3>
+            <p>₹250.00</p>
+            <button class="order-btn" data-name="Irish" data-price="250.00">Add to Order</button>
+          </div>  
+        <!-- Add more menu items with "Add to Order" buttons as needed -->
+      </div>
+    </div>
+    <button id="loginBtn">All Menu</button>
+  </section>
+  
+ <!-- Order Summary Modal -->
+<div id="order-modal" class="order-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Your Order</h2>
+      <ul id="modal-order-list"></ul>
+      <p>Total: ₹<span id="modal-order-total">0.00</span></p>
+      <form id="modal-checkout-form">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Your address" required></textarea>
+        <button type="submit" class="place-order-btn">Place Order</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwFmz6yDAzpzO8JZfhdS9V8P7Ldho89tt_keKFNL8aCxS4ALnfn9K0faaf55FYcHnc1/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => console.log('Success!', response))
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+  <style>
+    /* Basic styling for the pop-up */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #4caf50;
+        color: white;
+        padding: 20px;
+        border-radius: 5px;
+        font-size: 18px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    /* Style for the Add to Cart button */
+    .add-to-cart {
+        background-color: #ff5722;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .add-to-cart:hover {
+        background-color: #ff784e;
+    }
+</style>
+
+  <!-- Button to open the modal -->
+  <button id="view-cart-btn" class="view-cart-btn">View Cart</button>
+  
+  <!-- Gallery Section -->
+  <section id="gallery" class="gallery">
+    <div class="container">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <img src="service-3.jpg" alt="Coffee 1">
+        <img src="service-4.jpg" alt="Coffee 2">
+        <img src="coffee-bar.jpg" alt="Coffee 3">
+        <img src="imagesfood.jpg" alt="Coffee 4">
+        <img src="istockphoto.jpg" alt="Coffee 5">
+        <!-- Add more images as needed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2>Table Reservation</h2>
+      <form action="" method="post">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <select id="guests">
+          <option value="1">1 Person</option>
+          <option value="2">2 People</option>
+          <option value="3">3 People</option>
+          <option value="4">4 People</option>
+          <option value="5">5+ People</option> 
+        <input type="datetime-local" id="date" required>
+        <button type="submit">Reserve</button>
+      </form>
+    </div>
+  </section>
+  <!-- Testimonials Section -->
+<section id="testimonials" class="testimonials">
+    <div class="container">
+      <h2>What Our Customers Say</h2>
+      <div class="testimonial-slider">
+        <div class="testimonial">
+          <p>"The best coffee in town! The ambiance is perfect for relaxing."</p>
+          <h3>John Doe</h3>
+        </div>
+        <div class="testimonial">
+          <p>"Great service and delicious coffee. I’m a regular customer now!"</p>
+          <h3>Jane Smith</h3>
+        </div>
+        <div class="testimonial">
+          <p>"A must-visit café. The staff is friendly and the coffee is top-notch."</p>
+          <h3>Michael Lee</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- Map Section -->
+<section id="map" class="map">
+    <h2>Find Us</h2>
+    <div id="coffee-shop-map"></div>
+  </section>
+  <!-- Include Leaflet.js for Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+// Initialize the map
+var map = L.map('coffee-shop-map').setView([51.505, -0.09], 13);
+
+// Add OpenStreetMap tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+}).addTo(map);
+// Add a marker for the coffee shop
+L.marker([51.505, -0.09]).addTo(map)
+  .bindPopup('Utkarsh Coffee House<br>Come visit us !')
+  .openPopup();
+</script>
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 Coffee House. All Rights Reserved.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+  <script src="app.js"></script>
+  <script>document.getElementById('loginBtn').addEventListener('click', function() {
+                   window.open('login.html', '_blank'); 
+    // Opens the login page in a new tab
+       }); </script>
+
+</body>
+</html>

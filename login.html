@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>.menu {
+      padding: 40px 0;
+      text-align: center;
+      background-color: #f4f4f4;
+    } 
+    .menu h2 {
+      font-size: 38px;
+      margin-bottom: 30px;
+    }  
+    .menu .menu-items {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    } 
+    .menu-item {
+      background: #fff;
+      border-radius: 8px;
+      padding: 30px;
+      width: 26%;
+      margin-bottom: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+      cursor: pointer;
+    }
+      .menu-item img {
+      width: 80%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }  
+    .menu-item h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }  
+    .menu-item p {
+      font-size: 18px;
+      color: #ff6600;
+      font-weight: bold;
+    }
+    /* Menu Item Hover Effect */
+  .menu-item {
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+    }  
+    .menu-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button Hover Effect */
+    .hero-btn, .order-btn {
+      transition: transform 0.3s ease-in-out, background-color 0.3s;
+    }
+    
+    .hero-btn:hover, .order-btn:hover {
+      background-color: #e65c00;
+      transform: scale(1.05);
+    }
+    
+    /* Order Button Styles */
+  .order-btn {
+      background: #ff6600;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease-in-out;
+    }
+    
+    .order-btn:hover {
+      background: #e65c00;
+    }
+    
+    /* Order Summary Section */
+    .order-summary {
+      padding: 50px 0;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    
+    .order-summary h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    
+    #order-list {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+    
+    #order-list li {
+      font-size: 18px;
+      padding: 10px 0;
+    }
+    
+    #order-total {
+      font-weight: bold;
+      font-size: 22px;
+    }
+    
+    #checkout-form input, #checkout-form textarea {
+      width: 60%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    
+    #checkout-form button {
+      background: #ff6600;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    /* View Cart Button */
+  .view-cart-btn {
+      top: 0;
+      left: 0;
+      width: 94%;
+      height: 100%;
+      text-align:center;
+      background-color: #ff6600;
+      color: #fff;
+      padding: 15px 20px;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      margin: 20px;
+      transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+    }
+    
+    .view-cart-btn:hover {
+      background-color: #e65c00;
+      transform: scale(1.05);
+    }
+    </style>
+</head>
+<body>
+  <section id="menu" class="menu">
+    <div class="container">
+      <h2>Our Menu</h2>
+      <div class="menu-items">
+        <div class="menu-item">
+          <img src="expresso.png" alt="Espresso">
+          <h3>Espresso</h3>
+          <p>₹150.00</p>
+          <button class="order-btn" data-name="Espresso" data-price="150.00">Add to Order</button>
+        </div>
+        <div class="menu-item">
+          <img src="Cappuccino.png" alt="Cappuccino">
+          <h3>Cappuccino</h3>
+          <p>₹180.00</p>
+          <button class="order-btn" data-name="Cappuccino" data-price="180.00">Add to Order</button>
+        </div>
+        <div class="menu-item">
+          <img src="Latte.png" alt="Latte">
+          <h3>Latte</h3>
+          <p>₹250.00</p>
+          <button class="order-btn" data-name="Latte" data-price="250.00">Add to Order</button>
+        </div>
+        <div class="menu-item">
+            <img src="Mocha.png" alt="Mocha">
+            <h3>Mocha</h3>
+            <p>₹350.00</p>
+            <button class="order-btn" data-name="Mocha" data-price="350.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="Irish.png" alt="Irish">
+            <h3>Irish</h3>
+            <p>₹250.00</p>
+            <button class="order-btn" data-name="Irish" data-price="250.00">Add to Order</button>
+          </div>  
+          <div class="menu-item">
+            <img src="macchiato.png" alt="Caffè Macchiato">
+            <h3>Caffè Macchiato</h3>
+            <p>₹300.00</p>
+            <button class="order-btn" data-name="Caffè Macchiato" data-price="300.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="buttercroissant2.webp" alt="Butter Croissant">
+            <h3>Butter Croissant</h3>
+            <p>₹250.00</p>
+            <button class="order-btn" data-name="Butter Croissant" data-price="250.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="NutellaCroissant.webp" alt="Nutella Croissant">
+            <h3>Nutella Croissant</h3>
+            <p>₹280.00</p>
+            <button class="order-btn" data-name="Nutella Croissant" data-price="280.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="Easy-Chocolate-Almond-Croissants-2-crop.webp" alt="Almond croissant">
+            <h3>Almond croissant</h3>
+            <p>₹350.00</p>
+            <button class="order-btn" data-name="Almond croissant" data-price="350.00">Add to Order</button>
+          </div>
+        <!-- Add more menu items with "Add to Order" buttons as needed -->
+
+ <!-- Order Summary Modal -->
+<div id="order-modal" class="order-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Your Order</h2>
+      <ul id="modal-order-list"></ul>
+      <p>Total: ₹<span id="modal-order-total">0.00</span></p>
+      <form id="modal-checkout-form">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Your address" required></textarea>
+        <button type="submit" class="place-order-btn">Place Order</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwFmz6yDAzpzO8JZfhdS9V8P7Ldho89tt_keKFNL8aCxS4ALnfn9K0faaf55FYcHnc1/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => console.log('Success!', response))
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+  <style>
+    /* Basic styling for the pop-up */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #4caf50;
+        color: white;
+        padding: 20px;
+        border-radius: 5px;
+        font-size: 18px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    /* Style for the Add to Cart button */
+    .add-to-cart {
+        background-color: #ff5722;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .add-to-cart:hover {
+        background-color: #ff784e;
+    }
+</style>
+
+  <!-- Button to open the modal -->
+  <button id="view-cart-btn" class="view-cart-btn">View Cart</button>
+      
+</body>
+</html>
