@@ -27,9 +27,9 @@
 <div class="floating-contact">
   <div class="call-icon" onclick="toggleContactInfo()">📞</div>
   <div id="contact-info" class="contact-info">
-      <p><strong>Email:</strong> cafehouse@gmail.com</p>
+      <p><strong>Email:</strong>breakinbrew@gmail.com</p>
       <p><strong>Phone No:</strong> +91 9999888822</p>
-      <p><strong>Address:</strong> Greater Noida,Uttar Pradesh</p>
+      <p><strong>Address:</strong> Connaught Place,New Delhi</p>
   </div>
 </div>
 
@@ -98,11 +98,35 @@ ScrollReveal().reveal('.menu-item', {
             <h3>Irish</h3>
             <p>₹250.00</p>
             <button class="order-btn" data-name="Irish" data-price="250.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="macchiato.png" alt="Caffè Macchiato">
+            <h3>Caffè Macchiato</h3>
+            <p>₹300.00</p>
+            <button class="order-btn" data-name="Caffè Macchiato" data-price="300.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="buttercroissant2.webp" alt="Butter Croissant">
+            <h3>Butter Croissant</h3>
+            <p>₹250.00</p>
+            <button class="order-btn" data-name="Butter Croissant" data-price="250.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="NutellaCroissant.webp" alt="Nutella Croissant">
+            <h3>Nutella Croissant</h3>
+            <p>₹280.00</p>
+            <button class="order-btn" data-name="Nutella Croissant" data-price="280.00">Add to Order</button>
+          </div>
+          <div class="menu-item">
+            <img src="Easy-Chocolate-Almond-Croissants-2-crop.webp" alt="Almond croissant">
+            <h3>Almond croissant</h3>
+            <p>₹350.00</p>
+            <button class="order-btn" data-name="Almond croissant" data-price="350.00">Add to Order</button>
           </div>  
         <!-- Add more menu items with "Add to Order" buttons as needed -->
       </div>
     </div>
-    <button id="loginBtn">All Menu</button>
+    <!-- <button id="loginBtn">All Menu</button> --> 
   </section>
   
  <!-- Order Summary Modal -->
@@ -112,10 +136,10 @@ ScrollReveal().reveal('.menu-item', {
       <h2>Your Order</h2>
       <ul id="modal-order-list"></ul>
       <p>Total: ₹<span id="modal-order-total">0.00</span></p>
-      <form id="modal-checkout-form">
-        <input type="text" placeholder="Name" required>
-        <input type="number" placeholder="Mobile Number" required>
-        <textarea placeholder="Your Address" required></textarea>
+      <form id="modal-checkout-form" method="post" id= "form">
+        <input type="text" placeholder="Name" required name="name">
+        <input type="number" placeholder="Mobile Number" name="Mobile Number" required>
+        <textarea placeholder="Your Address" name="Email address" required></textarea>
         <button type="submit" class="place-order-btn">Place Order</button>
       </form>
     </div>
@@ -234,14 +258,14 @@ ScrollReveal().reveal('.menu-item', {
 
 <script>
 // Initialize the map
-var map = L.map('coffee-shop-map').setView([51.505, -0.09], 13);
+var map = L.map('coffee-shop-map').setView([28.6139, 77.2090], 13);
 
 // Add OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
 }).addTo(map);
 // Add a marker for the coffee shop
-L.marker([51.505, -0.09]).addTo(map)
+L.marker([28.6139, 77.2090]).addTo(map)
   .bindPopup('Breakin Brew<br>Come visit us !')
   .openPopup();
 </script>
